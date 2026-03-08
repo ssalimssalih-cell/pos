@@ -1,0 +1,496 @@
+/* ========================= */
+/* Reset & basics */
+/* ========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+}
+/* Pour tous les navigateurs modernes */
+.table-wrapper {
+  scrollbar-color: #000 #222; /* thumb = noir, track = gris foncé */
+  scrollbar-width: thin;       /* taille fine */
+}
+
+/* Pour Chrome, Edge, Safari (Webkit) */
+.table-wrapper::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: #222; /* fond de la scrollbar */
+  border-radius: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background-color: #000; /* la partie qui se déplace */
+  border-radius: 4px;
+  border: 2px solid #222; /* pour un petit effet padding */
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: #333; /* effet hover */
+}
+.table-wrapper button {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.85rem;
+  margin: 0 0.2rem;
+  border-radius: 5px;
+  border: none;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+/* Bouton Modifier = vert */
+.table-wrapper button:nth-child(1) {
+  background-color: #28a745; /* vert */
+  color: #fff;
+}
+
+.table-wrapper button:nth-child(1):hover {
+  background-color: #218838;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Bouton Supprimer = rouge */
+.table-wrapper button:nth-child(2) {
+  background-color: #dc3545; /* rouge */
+  color: #fff;
+}
+
+.table-wrapper button:nth-child(2):hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+/* ========================= */
+/* Navbar */
+/* ========================= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #111;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.menu-btn {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* ========================= */
+/* Overlay & Sidebar */
+/* ========================= */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 150;
+}
+
+.overlay.show {
+  display: block;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 40%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.05);
+  backdrop-filter: blur(5px);
+  transition: right 0.3s ease;
+  z-index: 200;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.side-menu.show {
+  right: 0;
+}
+
+.side-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.side-menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.side-menu ul li a:hover {
+  color: #aaa;
+}
+
+.close-btn {
+  font-size: 2rem;
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+}
+
+/* ========================= */
+/* Hero Section */
+/* ========================= */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #aaa;
+}
+
+/* ========================= */
+/* Forms Overlay & Forms */
+/* ========================= */
+.category-form-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.85);
+  backdrop-filter: blur(5px);
+  z-index: 300;
+  justify-content: center;
+  align-items: center;
+}
+
+.category-form-overlay.show {
+  display: flex;
+}
+
+.category-form {
+  background-color: #111;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 50%;
+  max-width: 900px;
+  max-height: 90%;
+  overflow-y: auto;
+  color: #fff;
+  position: relative;
+  box-shadow: 0 0 20px rgba(255,255,255,0.1);
+}
+
+/* Form POS full-screen */
+.category-form.full-screen {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.close-category-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.category-form h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #fff;
+}
+
+.category-form input,
+.category-form select,
+.category-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #222;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.category-form textarea {
+  min-height: 120px;
+}
+
+/* Product info display */
+#product-info p {
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+  color: #aaa;
+}
+
+/* ========================= */
+/* Buttons */
+/* ========================= */
+.btn {
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #222;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #444;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* ========================= */
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+th, td {
+  border: 1px solid #444;
+  padding: 0.6rem;
+  text-align: center;
+  transition: background 0.3s;
+}
+  table, th, td {
+    border: none;
+  }
+
+
+th {
+  background-color: #222;
+  cursor: pointer;
+  color: #fff;
+}
+
+tr:hover {
+  background-color: rgba(255,255,255,0.05);
+}
+
+/* Highlight credit rows */
+tr td:nth-child(9) {
+  font-weight: bold;
+}
+
+/* Table scroll wrapper */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Actions buttons in table */
+.table-wrapper button {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.85rem;
+  margin: 0 0.2rem;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.table-wrapper button:hover {
+  background-color: #555;
+  transform: translateY(-1px);
+}
+
+/* Total in cart */
+#cart-total {
+  font-weight: bold;
+  color: #0f0;
+  font-size: 1.2rem;
+}
+
+/* ========================= */
+/* Sales Filters */
+#filter-client,
+#filter-product,
+#filter-date {
+  width: auto;
+  min-width: 150px;
+  padding: 0.5rem;
+  background-color: #222;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  font-size: 0.95rem;
+}
+
+#filter-date {
+  cursor: pointer;
+}
+
+/* ========================= */
+/* Responsive */
+@media screen and (max-width: 1024px) {
+  .side-menu {
+    width: 60%;
+    padding: 1.5rem;
+  }
+
+  .category-form {
+    width: 70%;
+    padding: 2rem;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  th, td {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .side-menu {
+    width: 100%;
+    right: -100%;
+  }
+
+  .side-menu.show {
+    right: 0;
+  }
+
+  .category-form {
+    width: 90%;
+    max-width: none;
+    padding: 1.5rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 0.9rem;
+  }
+
+  th, td {
+    font-size: 0.85rem;
+    padding: 0.35rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .category-form {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .hero p {
+    font-size: 0.85rem;
+  }
+
+  th, td {
+    font-size: 0.8rem;
+    padding: 0.3rem;
+  }
+
+  .btn {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+  }
+  @media screen and (max-width: 480px) {
+  .table-wrapper {
+    overflow-x: hidden; /* plus de scroll horizontal */
+  }
+
+  table {
+    display: block;
+    width: 100%;
+  }
+
+  thead {
+    display: none; /* cacher l’entête */
+  }
+
+  tbody tr {
+    display: block;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #333; /* optionnel pour séparer visuellement */
+  }
+
+  tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    text-align: left;
+    font-size: 0.85rem;
+  }
+
+  tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #aaa;
+  }
+}
+
+}
